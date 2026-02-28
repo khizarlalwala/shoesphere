@@ -1,2 +1,2 @@
 # shoesphere
-This website is for shoes 
+This website is for shoes purchase
