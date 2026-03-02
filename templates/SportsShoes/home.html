@@ -4,56 +4,127 @@
     <title>SoleSphere</title>
 
     <style>
+        /* Modern Reset & Font */
         body {
             margin: 0;
-            font-family: Arial;
-            background: #f4f4f4;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            /* Subtle gradient background for depth */
+            background: radial-gradient(circle at top right, #ffffff, #e0e0e0);
+            min-height: 100vh;
+            color: #2d3436;
         }
 
+        /* Animated Navbar */
         .navbar {
-            background: black;
+            background: #000;
             color: white;
-            padding: 15px;
+            padding: 20px;
             text-align: center;
-            font-size: 24px;
+            font-size: 28px;
+            font-weight: 900;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
         .heading {
             text-align: center;
-            padding: 30px;
+            padding: 60px 20px 20px 20px;
         }
 
+        .heading h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin: 0;
+            background: linear-gradient(45deg, #000, #444);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Responsive Brand Layout */
         .brands {
             display: flex;
-            justify-content: space-around;
+            justify-content: center;
+            gap: 30px;
             flex-wrap: wrap;
-            padding: 20px;
+            padding: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
+        /* Glassmorphism Card Style */
         .brand-card {
-            background: white;
-            width: 250px;
-            margin: 15px;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            width: 260px;
+            margin: 0;
             text-align: center;
-            padding: 20px;
-            box-shadow: 0 0 10px #ccc;
-            border-radius: 10px;
+            padding: 40px 25px;
+            border: 1px solid rgba(255,255,255,0.3);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border-radius: 20px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
         }
 
+        .brand-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+            background: #ffffff;
+        }
+
+        /* Image Handling */
         .brand-card img {
-            width: 200px;
-            height: 150px;
+            width: 100%;
+            height: 120px; /* Uniform height */
             object-fit: contain;
+            margin-bottom: 20px;
+            filter: grayscale(20%);
+            transition: 0.3s;
         }
 
-        .btn {
-            background: black;
-            color: white;
-            padding: 10px 15px;
-            border: none;
-            cursor: pointer;
-            margin-top: 10px;
+        .brand-card:hover img {
+            filter: grayscale(0%);
+            transform: scale(1.1);
         }
+
+        .brand-card h3 {
+            font-size: 1.4rem;
+            margin: 10px 0;
+            font-weight: 700;
+        }
+
+        /* Premium Button Style */
+        .btn {
+            background: #000;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            margin-top: 15px;
+            font-weight: 600;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: 0.3s;
+            width: 100%;
+        }
+
+        .btn:hover {
+            background: #ff4757; /* A splash of color on hover */
+            box-shadow: 0 5px 15px rgba(255, 71, 87, 0.4);
+        }
+
+        /* Small link cleanup */
+        a { text-decoration: none; width: 100%; }
+
     </style>
 </head>
 
@@ -63,6 +134,7 @@
 
 <div class="heading">
     <h1>Select Your Brand</h1>
+    <p style="color: #666; margin-top: 10px;">Curated footwear from the giants of the game.</p>
 </div>
 
 <div class="brands">
@@ -80,7 +152,7 @@
     </div>
 
     <div class="brand-card">
-        <img src="https://www.freepnglogos.com/uploads/puma-logo-png-1.png">
+        <img src="https://static.vecteezy.com/system/resources/thumbnails/010/994/278/small/puma-logo-white-symbol-with-name-clothes-design-icon-abstract-football-illustration-with-black-background-free-vector.jpg">
         <h3>Puma</h3>
         <a href="/puma"><button class="btn">View Shoes</button></a>
     </div>
