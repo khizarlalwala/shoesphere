@@ -1,68 +1,453 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>Nike Collection</title>
-<style>
-body {font-family: Arial; text-align:center; background:#f4f4f4;}
-.card {background:white; padding:20px; margin:20px; display:inline-block; width:250px; box-shadow:0 0 10px #ccc;}
-img {width:200px;}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nike Shoes | Step Into The Future</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        /* --- DESIGN TOKENS --- */
+        :root {
+            --nike-black: #111111;
+            --nike-white: #ffffff;
+            --nike-volt: #dcf82d; /* Iconic Neon/Volt Accent */
+            --nike-gray: #f5f5f5;
+            --nike-dark-gray: #222222;
+            --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* --- RESET & BASE --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--nike-white);
+            color: var(--nike-black);
+            overflow-x: hidden;
+        }
+
+        /* --- NAVIGATION --- */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 5%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+        }
+
+        .logo {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 2rem;
+            letter-spacing: 1px;
+            color: var(--nike-black);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 40px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--nike-black);
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            position: relative;
+            padding: 5px 0;
+        }
+
+        /* Underline Hover Animation */
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0%;
+            height: 2px;
+            background: var(--nike-black);
+            transition: var(--transition-smooth);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), 
+                        url('https://images.unsplash.com/photo-1556906781-9a412961c28c?auto=format&fit=crop&q=80&w=1974') no-repeat center center/cover;
+            text-align: center;
+            color: var(--nike-white);
+            padding: 0 20px;
+        }
+
+        .hero-content h1 {
+            font-family: 'Bebas Neue', cursive;
+            font-size: clamp(4rem, 12vw, 9rem);
+            line-height: 0.9;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            transform: skew(-5deg);
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto 40px;
+            letter-spacing: 1px;
+            font-weight: 300;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            padding: 18px 50px;
+            background-color: var(--nike-white);
+            color: var(--nike-black);
+            text-decoration: none;
+            font-weight: 700;
+            text-transform: uppercase;
+            border-radius: 50px;
+            transition: var(--transition-smooth);
+            border: 2px solid var(--nike-white);
+        }
+
+        .btn-primary:hover {
+            background-color: transparent;
+            color: var(--nike-white);
+            transform: scale(1.05);
+        }
+
+        /* --- FEATURED PRODUCTS --- */
+        .section {
+            padding: 100px 5%;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 50px;
+        }
+
+        .section-header h2 {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 3rem;
+            text-transform: uppercase;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .product-card {
+            background: var(--nike-gray);
+            padding: 40px 20px;
+            border-radius: 4px;
+            text-align: center;
+            transition: var(--transition-smooth);
+            cursor: pointer;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            background: #ededed;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 250px;
+            object-fit: contain;
+            margin-bottom: 30px;
+            mix-blend-mode: multiply;
+        }
+
+        .product-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .product-card .price {
+            font-weight: 700;
+            color: #666;
+            margin-bottom: 25px;
+            display: block;
+        }
+
+        .buy-btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: var(--nike-black);
+            color: var(--nike-white);
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            border-radius: 2px;
+            transition: var(--transition-smooth);
+        }
+
+        .buy-btn:hover {
+            background: var(--nike-volt);
+            color: var(--nike-black);
+        }
+
+        /* --- WHY CHOOSE US --- */
+        .features-bg {
+            background: var(--nike-black);
+            color: var(--nike-white);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 60px;
+            text-align: center;
+        }
+
+        .feature-item h4 {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 1.8rem;
+            color: var(--nike-volt);
+            margin-bottom: 15px;
+        }
+
+        .feature-item p {
+            font-size: 0.9rem;
+            opacity: 0.7;
+            line-height: 1.8;
+        }
+
+        /* --- TESTIMONIALS --- */
+        .testimonials {
+            background-color: var(--nike-gray);
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+        }
+
+        .testi-card {
+            background: var(--nike-white);
+            padding: 40px;
+            flex: 1;
+            min-width: 300px;
+            max-width: 500px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border-bottom: 5px solid var(--nike-volt);
+        }
+
+        .testi-card blockquote {
+            font-size: 1.1rem;
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+
+        .testi-card cite {
+            font-weight: 700;
+            text-transform: uppercase;
+            font-style: normal;
+            font-size: 0.8rem;
+            color: var(--nike-black);
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background: var(--nike-black);
+            color: var(--nike-white);
+            padding: 80px 5% 30px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .footer-col h5 {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-col a {
+            color: #888;
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: var(--nike-volt);
+        }
+
+        .footer-col a:hover {
+            color: var(--nike-volt);
+        }
+
+        .footer-bottom {
+            padding-top: 30px;
+            border-top: 1px solid #333;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.75rem;
+            color: #555;
+        }
+
+        /* --- RESPONSIVENESS --- */
+        @media (max-width: 768px) {
+            .nav-links { display: none; } /* Simplified for single-file/no-JS */
+            .hero-content h1 { font-size: 4rem; }
+            .section { padding: 60px 5%; }
+        }
+    </style>
 </head>
 <body>
 
-<h1>Nike Shoes</h1>
+    <nav>
+        <a href="#" class="logo">NIKE SHOES</a>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#shop">Shop</a></li>
+            <li><a href="#new">New Arrivals</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
 
-<div class="card">
-<img src="data:image/jpeg;base64,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">
-<h3>Nike Air Max</h3>
-<p>₹3999</p>
-<p>Running | Lightweight | Air Cushion</p>
-<button style="background:black;color:white;padding:8px;border:none;">
-Buy Now
-</button>
-</div>
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Step Into <br> The Future</h1>
+            <p>Experience the next generation of athletic innovation. Engineered for those who never stop moving.</p>
+            <a href="#shop" class="btn-primary">Shop Now</a>
+        </div>
+    </section>
 
-<div class="card">
-<img src="https://adn-static1.nykaa.com/nykdesignstudio-images/pub/media/catalog/product/5/3/5324c8eNike-HJ8485-002_1.jpg?rnd=20200526195200&tr=w-1536">
-<h3>Nike Revolution</h3>
-<p>₹2999</p>
-<p>Daily Wear | Breathable</p>
-<button style="background:black;color:white;padding:8px;border:none;">
-Buy Now
-</button>
-</div>
+    <section class="section" id="shop">
+        <div class="section-header">
+            <h2>Featured Drops</h2>
+        </div>
+        <div class="product-grid">
+            <div class="product-card">
+                <img src="https://cdn.runrepeat.com/storage/gallery/product_content/39771/nike-air-max-pulse-outdoor-09-22259853-main.jpg" alt="Air Max Pulse">
+                <h3>Air Max Pulse</h3>
+                <span class="price">10500</span>
+                <a href="#" class="buy-btn">Buy Now</a>
+            </div>
+            <div class="product-card">
+                <img src="https://adn-static1.nykaa.com/nykdesignstudio-images/pub/media/catalog/product/5/3/5324c8eNike-HF5441-117_1.jpg?rnd=20200526195200&tr=w-1536" alt="Nike Dunk Low">
+                <h3>Nike Dunk Low</h3>
+                <span class="price">15000</span>
+                <a href="#" class="buy-btn">Buy Now</a>
+            </div>
+            <div class="product-card">
+                <img src="https://images-cdn.ubuy.co.in/65660b93e1aa8f571c43009c-nike-air-jordan-1-mid-alternate-bred.jpg" alt="Air Jordan 1">
+                <h3>Air Jordan 1</h3>
+                <span class="price">9499</span>
+                <a href="#" class="buy-btn">Buy Now</a>
+            </div>
+        </div>
+    </section>
 
-<div class="card">
-<img src="data:image/jpeg;base64,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">
-<h3>Nike Zoom</h3>
-<p>₹4599</p>
-<p>Sports | Grip Sole</p>
-<button style="background:black;color:white;padding:8px;border:none;">
-Buy Now
-</button>
-</div>
+    <section class="section features-bg">
+        <div class="features-grid">
+            <div class="feature-item">
+                <h4>Premium Quality</h4>
+                <p>Constructed with elite-grade materials and precision engineering to withstand every mile.</p>
+            </div>
+            <div class="feature-item">
+                <h4>Fast Delivery</h4>
+                <p>Free standard shipping on all orders. Get your gear delivered to your door in 2-3 business days.</p>
+            </div>
+            <div class="feature-item">
+                <h4>24/7 Support</h4>
+                <p>Our Nike Experts are here to help you find the perfect fit and answer your gear questions anytime.</p>
+            </div>
+        </div>
+    </section>
 
-<div class="card">
-<img src="data:image/jpeg;base64,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">
-<h3>Nike React</h3>
-<p>₹5499</p>
-<p>Comfort | Foam Sole</p>
-<button style="background:black;color:white;padding:8px;border:none;">
-Buy Now
-</button>
-</div>
+    <section class="section">
+        <div class="section-header">
+            <h2>Athlete Voice</h2>
+        </div>
+        <div class="testimonials">
+            <div class="testi-card">
+                <blockquote>"The responsiveness of these shoes is unmatched. It feels like I'm running on clouds while staying grounded."</blockquote>
+                <cite>— Marcus G., Marathon Runner</cite>
+            </div>
+            <div class="testi-card">
+                <blockquote>"Style meets performance perfectly. I wear them to the gym and then straight to the city. Versatility at its best."</blockquote>
+                <cite>— Sarah L., Fitness Coach</cite>
+            </div>
+        </div>
+    </section>
 
-<div class="card">
-<img src="https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcRi660Pj2Y47ksmugohcGi-DI52eIautIC37wsR11je8u4mQcRtqw1Sei_AZF7AbhatzJE1kBEiGeyI01TaG-74iWKWzbU-7rbgRXsD9yMHe4peB9z6rV98OQ">
-<h3>Nike Pegasus</h3>
-<p>₹4999</p>
-<p>Running | Flexible</p>
-<button style="background:black;color:white;padding:8px;border:none;">
-Buy Now
-</button>
-</div>
-
-<a href="/">Back</a>
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h5>Get Help</h5>
+                <ul>
+                    <li><a href="#">Order Status</a></li>
+                    <li><a href="#">Shipping & Delivery</a></li>
+                    <li><a href="#">Returns</a></li>
+                    <li><a href="#">Payment Options</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h5>About Nike</h5>
+                <ul>
+                    <li><a href="#">News</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Investors</a></li>
+                    <li><a href="#">Sustainability</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h5>Social</h5>
+                <ul>
+                    <li><a href="#">Instagram</a></li>
+                    <li><a href="#">Twitter</a></li>
+                    <li><a href="#">Facebook</a></li>
+                    <li><a href="#">YouTube</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Nike Shoes, Inc. All Rights Reserved</p>
+            <p>Guides | Terms of Use | Terms of Sale</p>
+        </div>
+    </footer>
 
 </body>
 </html>

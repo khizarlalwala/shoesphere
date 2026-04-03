@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+/act<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comet Shoes | Step Into The Future</title>
+    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        /* --- CSS VARIABLES & RESET --- */
+        :root {
+            --primary: #00f2ff; /* Neon Cyan */
+            --bg-dark: #050505;
+            --bg-card: #111111;
+            --text-light: #ffffff;
+            --text-gray: #a0a0a0;
+            --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* --- NAVIGATION --- */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 8%;
+            background: rgba(5, 5, 5, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logo {
+            font-family: 'Syncopate', sans-serif;
+            font-size: 1.5rem;
+            letter-spacing: 2px;
+            color: var(--text-light);
+            text-decoration: none;
+            text-transform: uppercase;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-light);
+            font-weight: 500;
+            font-size: 0.9rem;
+            position: relative;
+            padding-bottom: 5px;
+            transition: var(--transition);
+        }
+
+        /* Underline Animation */
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0%;
+            height: 2px;
+            background: var(--primary);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            height: 100vh;
+            width: 100%;
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
+                        url('https://images.unsplash.com/photo-1552346154-21d32810aba3?auto=format&fit=crop&q=80&w=2070') no-repeat center center/cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        .hero h1 {
+            font-family: 'Syncopate', sans-serif;
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            letter-spacing: -2px;
+            animation: fadeInUp 1s ease forwards;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            color: var(--text-gray);
+            margin-bottom: 40px;
+            animation: fadeInUp 1.2s ease forwards;
+        }
+
+        .cta-btn {
+            padding: 18px 45px;
+            background: var(--primary);
+            color: #000;
+            text-decoration: none;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 4px;
+            transition: var(--transition);
+            border: 2px solid var(--primary);
+        }
+
+        .cta-btn:hover {
+            background: transparent;
+            color: var(--primary);
+            box-shadow: 0 0 20px var(--primary);
+            transform: translateY(-5px);
+        }
+
+        /* --- PRODUCTS SECTION --- */
+        .section-padding {
+            padding: 100px 8%;
+        }
+
+        .section-title {
+            font-family: 'Syncopate', sans-serif;
+            text-align: center;
+            margin-bottom: 60px;
+            font-size: 2rem;
+            text-transform: uppercase;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .product-card {
+            background: var(--bg-card);
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            transition: var(--transition);
+            border: 1px solid rgba(255,255,255,0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 20px 40px rgba(0, 242, 255, 0.1);
+            border-color: var(--primary);
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 250px;
+            object-fit: contain;
+            margin-bottom: 20px;
+        }
+
+        .product-card h3 {
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+
+        .product-card p {
+            color: var(--primary);
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .buy-btn {
+            display: inline-block;
+            padding: 12px 25px;
+            border: 1px solid var(--text-light);
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            transition: var(--transition);
+        }
+
+        .buy-btn:hover {
+            background: var(--text-light);
+            color: #000;
+        }
+
+        /* --- WHY CHOOSE US --- */
+        .features {
+            background: #0a0a0a;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            text-align: center;
+        }
+
+        .feature-box i {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .feature-box h4 {
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        .feature-box p {
+            color: var(--text-gray);
+            font-size: 0.9rem;
+        }
+
+        /* --- TESTIMONIALS --- */
+        .testimonials-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+        }
+
+        .testi-card {
+            background: linear-gradient(145deg, #111, #050505);
+            padding: 40px;
+            border-radius: 10px;
+            max-width: 500px;
+            border-left: 4px solid var(--primary);
+        }
+
+        .testi-card p {
+            font-style: italic;
+            margin-bottom: 20px;
+            color: var(--text-gray);
+        }
+
+        .testi-card span {
+            font-weight: 700;
+            color: var(--text-light);
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            padding: 80px 8% 40px;
+            background: #000;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 50px;
+            margin-bottom: 50px;
+        }
+
+        .footer-section h4 {
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            color: var(--primary);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: var(--text-gray);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+            padding-left: 5px;
+        }
+
+        .copyright {
+            text-align: center;
+            color: #444;
+            padding-top: 30px;
+            border-top: 1px solid #111;
+            font-size: 0.8rem;
+        }
+
+        /* --- ANIMATIONS --- */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- MOBILE RESPONSIVENESS --- */
+        @media (max-width: 768px) {
+            .nav-links { display: none; } /* Simplified for single file no JS */
+            .hero h1 { font-size: 3rem; }
+            .section-padding { padding: 60px 5%; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="#" class="logo">COMET</a>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#shop">Shop</a></li>
+            <li><a href="#new">New Arrivals</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <section class="hero" id="home">
+        <h1>Step Into The Future</h1>
+        <p>Engineered for speed. Crafted for style. Comet Shoes brings you the ultimate fusion of comfort and performance.</p>
+        <a href="#shop" class="cta-btn">Shop Now</a>
+    </section>
+
+    <section class="section-padding" id="shop">
+        <h2 class="section-title">Latest Drops</h2>
+        <div class="product-grid">
+            <div class="product-card">
+                <img src="https://www.wearcomet.com/cdn/shop/files/Lateral_4_1_da4a0672-4105-402c-8c09-79e65b7b668a.jpg?v=1772442647&width=800" alt="Comet Nebula">
+                <h3>Comet Nebula</h3>
+                <p>6189</p>
+                <a href="#" class="buy-btn">Buy Now</a>
+            </div>
+            <div class="product-card">
+                <img src="https://th-i.thgim.com/public/incoming/gug9wi/article69878117.ece/alternates/FREE_1200/02mp_naru2.jpg" alt="Comet Stealth">
+                <h3>Comet Stealth</h3>
+                <p>9210</p>
+                <a href="#" class="buy-btn">Buy Now</a>
+            </div>
+            <div class="product-card">
+                <img src="https://products.7span.in/assets/38702a81-c3bc-4afe-8f2c-c9005fce004e.png" alt="Comet Pulse">
+                <h3>Comet Pulse</h3>
+                <p>8175</p>
+                <a href="#" class="buy-btn">Buy Now</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-padding features">
+        <div class="feature-box">
+            <h4>Premium Quality</h4>
+            <p>We use aerospace-grade materials for durability and unparalleled comfort in every step.</p>
+        </div>
+        <div class="feature-box">
+            <h4>Fast Delivery</h4>
+            <p>Our global logistics network ensures your pair of Comets reaches you within 48 hours.</p>
+        </div>
+        <div class="feature-box">
+            <h4>24/7 Support</h4>
+            <p>Our dedicated support team is always awake to help you with your orbital journey.</p>
+        </div>
+    </section>
+
+    <section class="section-padding">
+        <h2 class="section-title">The Community</h2>
+        <div class="testimonials-container">
+            <div class="testi-card">
+                <p>"The comfort is out of this world. I've never felt a shoe that supports my stride like the Comet Pulse does."</p>
+                <span>— ALEX RIVERA</span>
+            </div>
+            <div class="testi-card">
+                <p>"Finally, a brand that merges tech-wear aesthetics with everyday functionality. A must-have for the modern runner."</p>
+                <span>— JORDAN SMITH</span>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <a href="#" class="logo">COMET</a>
+                <p style="color: #666; margin-top: 15px;">Revolutionizing the way you move since 2024.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul class="footer-links">
+                    <li><a href="#">Size Guide</a></li>
+                    <li><a href="#">Track Order</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Social</h4>
+                <ul class="footer-links">
+                    <li><a href="#">Instagram</a></li>
+                    <li><a href="#">Twitter/X</a></li>
+                    <li><a href="#">Discord</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            &copy; 2026 Comet Shoes Inc. All Rights Reserved.
+        </div>
+    </footer>
+
+</body>
+</html>

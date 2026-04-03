@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Add Shoes</title>
+
+<style>
+
+body{
+font-family:Arial;
+background:#f4f4f4;
+}
+
+.container{
+width:400px;
+margin:auto;
+margin-top:60px;
+background:white;
+padding:30px;
+border-radius:10px;
+box-shadow:0 10px 20px rgba(0,0,0,0.1);
+}
+
+input{
+width:100%;
+padding:10px;
+margin-bottom:15px;
+border:1px solid #ccc;
+border-radius:5px;
+}
+
+button{
+padding:10px 20px;
+background:#007cc2;
+color:white;
+border:none;
+cursor:pointer;
+border-radius:5px;
+}
+
+button:hover{
+background:#005f99;
+}
+
+.shoes-list{
+width:80%;
+margin:40px auto;
+background:white;
+padding:20px;
+border-radius:10px;
+box-shadow:0 5px 15px rgba(0,0,0,0.1);
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+}
+
+table th, table td{
+padding:10px;
+border-bottom:1px solid #ddd;
+text-align:center;
+}
+
+a{
+padding:6px 12px;
+background:#007cc2;
+color:white;
+text-decoration:none;
+border-radius:4px;
+margin:2px;
+}
+
+a.delete{
+background:red;
+}
+
+img{
+width:80px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>Add Shoes</h2>
+
+<form method="POST">
+
+{% csrf_token %}
+
+{% if form %}
+
+{{ form.as_p }}
+
+<button type="submit">Update Shoe</button>
+
+{% else %}
+
+<label>Shoe Name</label>
+<input type="text" name="name" required>
+
+<label>Price</label>
+<input type="number" name="price" required>
+
+<label>Image URL</label>
+<input type="text" name="image" required>
+
+<button type="submit">Save Shoe</button>
+
+{% endif %}
+
+</form>
+
+</div>
+
+
+<div class="shoes-list">
+
+<h2>All Shoes</h2>
+
+<table>
+
+<tr>
+<th>ID</th>
+<th>Name</th>
+<th>Price</th>
+<th>Image</th>
+<th>Actions</th>
+</tr>
+
+{% for shoe in shoes %}
+
+<tr>
+
+<td>{{shoe.id}}</td>
+
+<td>{{shoe.name}}</td>
+
+<td>₹{{shoe.price}}</td>
+
+<td>
+<img src="{{shoe.image}}">
+</td>
+
+<td>
+
+<a href="{% url 'update_shoe' shoe.id %}">Update</a>
+
+<a href="{% url 'delete_shoe' shoe.id %}" class="delete">Delete</a>
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+</div>
+
+</body>
+</html>
